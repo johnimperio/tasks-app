@@ -8,12 +8,16 @@ var app = new Vue({
     newTaskLabel: '',
     updatedTask: '',
     tasks: [],
+    showTotals: false,
   },
 
   methods: {
     addTask() {
-      this.tasks.push({ description: this.newTask, statusCompleted: false })
-      this.newTask = ''
+      if (this.newTask == '') { } else {
+        this.tasks.push({ description: this.newTask, statusCompleted: false })
+        this.newTask = ''
+        this.showTotals = true
+      }
     },
     markStatus(index) {
       // update array at position; set statusCompleted to true
@@ -33,6 +37,12 @@ var app = new Vue({
     },
     deleteTask(index) {
       this.tasks.splice(index, 1)
+      if (this.tasks.length == 0) {
+        this.showTotals = false
+      }
+    },
+    focusInput() {
+      this.$refs.task.focus();
     }
 
   },
@@ -52,5 +62,11 @@ var app = new Vue({
       },
 
   },
+
+  mounted() {
+
+    this.focusInput();
+
+  }
 
 });

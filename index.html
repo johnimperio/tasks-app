@@ -24,7 +24,7 @@
 	<script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
   <script type="text/javascript" src="js/main.js" async></script>
 
-	<title>Tasks</title>
+	<title>Your Tasks</title>
 
 	<link rel="stylesheet" href="css/style.css">
 
@@ -39,9 +39,15 @@
 </head>
 <body>
 
+	<div id="my-github">
+		<a href="https://johnimperio.com" target="_blank">johnimperio.com</a>
+		<a href="https://github.com/johnimperio/tasks-app" target="_blank"><img src="images/GitHub-Mark-32px.png" /> See this on Github</a>
+	</div>
+
   <div class="page-container">
+
     <div id="root">
-		  <h1>My Tasks</h1>
+		  <h1>Your Tasks</h1>
       <ul>
         <li class="item" v-for="(task, index) in tasks">
           <input type="checkbox" @click="markStatus(index)" :checked="task.statusCompleted" />
@@ -56,9 +62,9 @@
         </li>
       </ul>
       <label>
-        <input type="text" placeholder="Add a task..." v-on:keyup.enter="addTask" v-model="newTask" />
+        <input ref="task" type="text" placeholder="Add something to do.." v-on:keyup.enter="addTask" v-model="newTask" />
       </label>
-			<div id="results">
+			<div id="results" v-if="showTotals">
 				<h4>Total <span class="pill blue">{{ taskCount }}</span></h4>
 				<h4>Incomplete <span class="pill red">{{ incompleteTasks }}</span></h4>
 				<h4>Completed <span class="pill green">{{ completedTasks }}</span></h4>
